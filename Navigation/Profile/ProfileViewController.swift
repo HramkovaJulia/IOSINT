@@ -33,6 +33,12 @@ final class ProfileViewController: UIViewController {
         Self.postTableView.delegate = self
         Self.postTableView.refreshControl = UIRefreshControl()
         Self.postTableView.refreshControl?.addTarget(self, action: #selector(reloadTableView), for: .valueChanged)
+        
+#if DEBUG
+        view.backgroundColor = .red
+#else
+        view.backgroundColor = .blue
+#endif
     }
     
     private func setupConstraints() {
