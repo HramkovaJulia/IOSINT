@@ -4,6 +4,7 @@
 //
 
 import UIKit
+import iOSIntPackage
 
 final class ProfileViewController: UIViewController {
     
@@ -85,6 +86,13 @@ extension ProfileViewController: UITableViewDelegate {
         case 1:
             let cell = Self.postTableView.dequeueReusableCell(withIdentifier: Self.postIdent, for: indexPath) as! PostTableViewCell
             cell.configPostArray(post: postExamples[indexPath.row])
+            let colorFilter = ColorFilter.chrome
+            let imageProcessor = ImageProcessor()
+            if let image = cell.postImage.image {
+                imageProcessor.processImage(sourceImage: image, filter: colorFilter) { processedImage in
+                        cell.postImage.image = processedImage
+                }
+            }
             return cell
         default:
             assertionFailure("no registered section")
