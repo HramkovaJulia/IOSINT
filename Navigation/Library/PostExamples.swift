@@ -2,6 +2,7 @@
 //  PostExamples.swift
 //  Navigation
 //
+import StorageService
 
 let postExamples: [Post] = [
     Post(author: "Kat Vadam",
