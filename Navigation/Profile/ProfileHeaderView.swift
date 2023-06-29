@@ -40,7 +40,7 @@ final class ProfileHeaderView: UITableViewHeaderFooterView {
     
     private func setupNameLabel() {
         fullNameLabel.translatesAutoresizingMaskIntoConstraints = false
-        fullNameLabel.text = "Teo West"
+//        fullNameLabel.text = "Teo West"
         fullNameLabel.font = .boldSystemFont(ofSize: 18)
         fullNameLabel.textColor = .black
         addSubview(fullNameLabel)
@@ -54,7 +54,7 @@ final class ProfileHeaderView: UITableViewHeaderFooterView {
     
     private func setupStatusLabel() {
         statusLabel.translatesAutoresizingMaskIntoConstraints = false
-        statusLabel.text = statusText
+//        statusLabel.text = statusText
         statusLabel.font = .systemFont(ofSize: 17)
         statusLabel.textColor = .black
         addSubview(statusLabel)
@@ -111,7 +111,7 @@ final class ProfileHeaderView: UITableViewHeaderFooterView {
     
     private func setupAvatarImage() {
         avatarImageView.translatesAutoresizingMaskIntoConstraints = false
-        avatarImageView.image = UIImage(named: "teo")
+//        avatarImageView.image = UIImage(named: "teo")
         avatarImageView.layer.cornerRadius = 64
         avatarImageView.layer.borderWidth = 3
         avatarImageView.layer.borderColor = UIColor.white.cgColor
@@ -200,6 +200,12 @@ final class ProfileHeaderView: UITableViewHeaderFooterView {
             ProfileViewController.postTableView.cellForRow(at: IndexPath(row: 0, section: 0))?.isUserInteractionEnabled = true
             self.avatarImageView.isUserInteractionEnabled = true
         }
+    }
+    
+    func setup(user: User) {
+        fullNameLabel.text = user.fullName
+        avatarImageView.image = user.image
+        statusLabel.text = user.status
     }
 }
 

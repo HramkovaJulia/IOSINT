@@ -29,6 +29,7 @@
 		581B41402A4AEC8E0053F055 /* StorageService.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 581B413A2A4AEC8E0053F055 /* StorageService.framework */; };
 		581B41412A4AEC8E0053F055 /* StorageService.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 581B413A2A4AEC8E0053F055 /* StorageService.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		581B41462A4AECC10053F055 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3601A2C128495DDF000D261A /* Post.swift */; };
+		58DBFC622A4D6F9300D9C086 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58DBFC612A4D6F9300D9C086 /* User.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -80,6 +81,7 @@
 		581B41342A4AEB8A0053F055 /* Navigation copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "Navigation copy-Info.plist"; path = "/Users/artyomprima/Documents/HW/Navigation copy-Info.plist"; sourceTree = "<absolute>"; };
 		581B413A2A4AEC8E0053F055 /* StorageService.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = StorageService.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		581B413C2A4AEC8E0053F055 /* StorageService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StorageService.h; sourceTree = "<group>"; };
+		58DBFC612A4D6F9300D9C086 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -131,6 +133,7 @@
 				3601A2B028490DDF000D261A /* Assets.xcassets */,
 				3601A2B228490DDF000D261A /* LaunchScreen.storyboard */,
 				3601A2B528490DDF000D261A /* Info.plist */,
+				58DBFC612A4D6F9300D9C086 /* User.swift */,
 			);
 			path = Navigation;
 			sourceTree = "<group>";
@@ -290,6 +293,7 @@
 				3601A2C028495339000D261A /* PostViewController.swift in Sources */,
 				36528E37284F5E3800965BA4 /* LoginViewController.swift in Sources */,
 				36528E41284FE38C00965BA4 /* ExtensionUIView.swift in Sources */,
+				58DBFC622A4D6F9300D9C086 /* User.swift in Sources */,
 				36C5F05E2850B4A6005EFC6C /* PhotoExamples.swift in Sources */,
 				3601A2C7284A776A000D261A /* ProfileHeaderView.swift in Sources */,
 				36C5F0652850C9D1005EFC6C /* PostExamples.swift in Sources */,
