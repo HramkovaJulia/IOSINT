@@ -4,13 +4,14 @@
 //
 
 import UIKit
-import iOSIntPackage
 
 final class ProfileViewController: UIViewController {
     
     static let headerIdent = "header"
     static let photoIdent = "photo"
     static let postIdent = "post"
+    
+    var user: User?
     
     static var postTableView: UITableView = {
         let table = UITableView(frame: .zero, style: .grouped)
@@ -86,13 +87,6 @@ extension ProfileViewController: UITableViewDelegate {
         case 1:
             let cell = Self.postTableView.dequeueReusableCell(withIdentifier: Self.postIdent, for: indexPath) as! PostTableViewCell
             cell.configPostArray(post: postExamples[indexPath.row])
-            let colorFilter = ColorFilter.chrome
-            let imageProcessor = ImageProcessor()
-            if let image = cell.postImage.image {
-                imageProcessor.processImage(sourceImage: image, filter: colorFilter) { processedImage in
-                        cell.postImage.image = processedImage
-                }
-            }
             return cell
         default:
             assertionFailure("no registered section")
@@ -103,9 +97,12 @@ extension ProfileViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         guard section == 0 else { return nil }
         let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: Self.headerIdent) as! ProfileHeaderView
+        if let user = user {
+            headerView.setup(user: user)
+        }
         return headerView
     }
-
+    
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return section == 0 ? 220 : 0
     }

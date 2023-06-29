@@ -7,6 +7,9 @@ import UIKit
 
 final class LoginViewController: UIViewController {
     
+    var user: UserService?
+//    Service = CurrentUserService(user: User(name: "teo", fullName: "Teo", status: "Online", image: UIImage(named: "teo")!))
+    
     // MARK: Visual content
     
     var loginScrollView: UIScrollView = {
@@ -169,8 +172,19 @@ final class LoginViewController: UIViewController {
     // MARK: - Event handlers
 
     @objc private func touchLoginButton() {
-        let profileVC = ProfileViewController()
-        navigationController?.setViewControllers([profileVC], animated: true)
+#if DEBUG
+        user = CurrentUserService(user: User(name: "Teo", fullName: "Teo", status: "Online", image: UIImage(named: "teo")!))
+#else
+        user = TestUserService()
+#endif
+        if let user = user {
+        let correctUser = user.checkLogin(name: loginField.text ?? "")
+            let profileVC = ProfileViewController()
+            profileVC.user = correctUser
+            navigationController?.setViewControllers([profileVC], animated: true)
+        } else {
+            print("erro")
+        }
     }
 
     @objc private func keyboardShow(notification: NSNotification) {
