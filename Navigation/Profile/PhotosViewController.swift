@@ -4,11 +4,16 @@
 //
 
 import UIKit
+import iOSIntPackage
+
 
 class PhotosViewController: UIViewController {
     
     let photoIdent = "photoCell"
-
+    
+    private let imagePublisherFacade = ImagePublisherFacade()
+    
+    var images: [UIImage]?
     // MARK: Visual objects
     
     lazy var layout: UICollectionViewFlowLayout = {
@@ -19,7 +24,7 @@ class PhotosViewController: UIViewController {
         layout.sectionInset = UIEdgeInsets.init(top: 8, left: 8, bottom: 8, right: 8)
         return layout
     }()
-
+    
     lazy var photosCollectionView: UICollectionView = {
         let photos = UICollectionView(frame: .zero, collectionViewLayout: layout)
         photos.translatesAutoresizingMaskIntoConstraints = false
@@ -32,12 +37,13 @@ class PhotosViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         self.title = "Photo Gallery"
         self.view.addSubview(photosCollectionView)
         self.photosCollectionView.dataSource = self
         self.photosCollectionView.delegate = self
         setupConstraints()
+        imagePublisherFacade.subscribe(self)
+        imagePublisherFacade.addImagesWithTimer(time: 0.5, repeat: 20)
     }
     
     private func setupConstraints() {
@@ -48,7 +54,7 @@ class PhotosViewController: UIViewController {
             photosCollectionView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor)
         ])
     }
-
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.navigationBar.isHidden = false
@@ -57,13 +63,14 @@ class PhotosViewController: UIViewController {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         navigationController?.navigationBar.isHidden = true
+        imagePublisherFacade.removeSubscription(for: self)
     }
 }
 
 // MARK: - Extensions
 
 extension PhotosViewController: UICollectionViewDelegateFlowLayout {
-
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let countItem: CGFloat = 2
         let accessibleWidth = collectionView.frame.width - 32
@@ -73,15 +80,31 @@ extension PhotosViewController: UICollectionViewDelegateFlowLayout {
 }
 
 extension PhotosViewController: UICollectionViewDataSource {
-
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return Photos.shared.examples.count
+        if let images = images {
+            return images.count
+        }
+        return 0
     }
-
+    
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: photoIdent, for: indexPath) as? PhotosCollectionViewCell else { return UICollectionViewCell()}
-        cell.configCellCollection(photo: Photos.shared.examples[indexPath.item])
+        if let images = images {
+            cell.configCellCollection(photo: images[indexPath.item])
+        }
         return cell
     }
 }
 
+extension PhotosViewController: ImageLibrarySubscriber {
+    
+    func receive(images: [UIImage]) {
+        
+        self.images = images
+        
+        DispatchQueue.main.async {
+            self.photosCollectionView.reloadData()
+        }
+    }
+}
