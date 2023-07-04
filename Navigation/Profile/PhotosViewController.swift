@@ -43,7 +43,7 @@ class PhotosViewController: UIViewController {
         self.photosCollectionView.delegate = self
         setupConstraints()
         imagePublisherFacade.subscribe(self)
-        imagePublisherFacade.addImagesWithTimer(time: 0.5, repeat: 20)
+        imagePublisherFacade.addImagesWithTimer(time: 0.5, repeat: 20, userImages: Photos.shared.examples)
     }
     
     private func setupConstraints() {
@@ -102,9 +102,6 @@ extension PhotosViewController: ImageLibrarySubscriber {
     func receive(images: [UIImage]) {
         
         self.images = images
-        
-        DispatchQueue.main.async {
             self.photosCollectionView.reloadData()
-        }
     }
 }
