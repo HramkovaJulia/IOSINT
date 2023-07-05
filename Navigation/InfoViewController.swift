@@ -16,9 +16,9 @@ final class InfoViewController: UIViewController {
     }
     
     private func createAlertButton() {
-        let button = CustomButton(title: "Alert", backColor: .systemPink)
-        button.addTarget(self, action: #selector(tapAlertButton), for: .touchUpInside)
-                
+        let button = CustomButton(title: "Alert", bgColor: .systemPink) {
+            self.tapAlertButton()
+        }
         view.addSubview(button)
         
         NSLayoutConstraint.activate([

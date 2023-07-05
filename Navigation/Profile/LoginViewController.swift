@@ -50,17 +50,9 @@ final class LoginViewController: UIViewController {
         return stack
     }()
     
-    var loginButton: CustomButton = {
-        let button = CustomButton(title: "Login", backColor: .systemBlue)
-      
-        if let pixel = UIImage(named: "blue_pixel") {
-            button.setBackgroundImage(pixel.image(alpha: 1), for: .normal)
-            button.setBackgroundImage(pixel.image(alpha: 0.8), for: .selected)
-            button.setBackgroundImage(pixel.image(alpha: 0.6), for: .highlighted)
-            button.setBackgroundImage(pixel.image(alpha: 0.4), for: .disabled)
-        }
-        return button
-    }()
+    lazy var loginButton = CustomButton(title: "Login", bgColor: .systemBlue) { [unowned self] in
+        self.touchLoginButton()
+    }
     
     var loginField: UITextField = {
         let login = UITextField()
@@ -103,7 +95,12 @@ final class LoginViewController: UIViewController {
         
         view.backgroundColor = .systemBackground
         navigationController?.navigationBar.isHidden = true
-        
+        if let pixel = UIImage(named: "blue_pixel") {
+            loginButton.setBackgroundImage(pixel.image(alpha: 1), for: .normal)
+            loginButton.setBackgroundImage(pixel.image(alpha: 0.8), for: .selected)
+            loginButton.setBackgroundImage(pixel.image(alpha: 0.6), for: .highlighted)
+            loginButton.setBackgroundImage(pixel.image(alpha: 0.4), for: .disabled)
+        }
         setupViews()
     }
     
@@ -159,9 +156,6 @@ final class LoginViewController: UIViewController {
         let nc = NotificationCenter.default
         nc.addObserver(self, selector: #selector(keyboardShow), name: UIResponder.keyboardWillShowNotification, object: nil)
         nc.addObserver(self, selector: #selector(keyboardHide), name: UIResponder.keyboardWillHideNotification, object: nil)
-        loginButton.buttonTapped = { [weak self] in
-            self?.touchLoginButton()
-        }
     }
     
     override func viewDidDisappear(_ animated: Bool) {

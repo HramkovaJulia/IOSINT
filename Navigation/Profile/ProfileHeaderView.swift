@@ -13,8 +13,12 @@ final class ProfileHeaderView: UITableViewHeaderFooterView {
     var avatarImageView = UIImageView()
     var statusLabel = UILabel()
     var statusTextField = UITextField()
-    var setStatusButton = CustomButton(title: "Show status", backColor: .systemBlue)
-    var returnAvatarButton = CustomButton()
+    lazy  var setStatusButton = CustomButton(title: "Show Status", bgColor: .systemBlue) {
+        self.statusButtonPressed()
+    }
+    lazy var returnAvatarButton = CustomButton(title: "", bgColor: .clear) {
+        self.returnAvatarToOrigin()
+    }
     var avatarBackground = UIView()
     
     private var statusText = "Ready to help"
@@ -32,14 +36,8 @@ final class ProfileHeaderView: UITableViewHeaderFooterView {
         setupAvatarImage()
         
         statusTextField.delegate = self
-        setStatusButton.buttonTapped = { [weak self] in
-            self?.statusButtonPressed()
-        }
-        returnAvatarButton.buttonTapped = { [weak self] in
-            self?.returnAvatarToOrigin()
-        }
     }
-
+    
     required init?(coder: NSCoder) {
         fatalError("lol")
     }
@@ -112,7 +110,7 @@ final class ProfileHeaderView: UITableViewHeaderFooterView {
     
     private func setupAvatarImage() {
         avatarImageView.translatesAutoresizingMaskIntoConstraints = false
-//        avatarImageView.image = UIImage(named: "teo")
+        //        avatarImageView.image = UIImage(named: "teo")
         avatarImageView.layer.cornerRadius = 64
         avatarImageView.layer.borderWidth = 3
         avatarImageView.layer.borderColor = UIColor.white.cgColor

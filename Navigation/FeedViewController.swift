@@ -32,20 +32,6 @@ final class FeedViewController: UIViewController {
         view.backgroundColor = .systemTeal
         createSubView()
         delegate = FeedModel()
-        checkGuessButton.buttonTapped = { [weak self] in
-            if let text = self?.loginField.text {
-                if self?.delegate?.check(word: text) == true {
-                    self?.tapPostButton()
-                    self?.label1.text = "True"
-                    self?.label1.backgroundColor = .green
-                    self?.label1.isHidden = false
-                } else {
-                    self?.label1.text = "False"
-                    self?.label1.backgroundColor = .red
-                    self?.label1.isHidden = false
-                }
-            }
-        }
     }
     
     override func viewDidLayoutSubviews() {
@@ -71,17 +57,24 @@ final class FeedViewController: UIViewController {
         return login
     }()
     
-    var checkGuessButton: CustomButton = {
-        let button = CustomButton(title: "Login", backColor: .systemBlue)
-        
-        if let pixel = UIImage(named: "blue_pixel") {
-            button.setBackgroundImage(pixel.image(alpha: 1), for: .normal)
-            button.setBackgroundImage(pixel.image(alpha: 0.8), for: .selected)
-            button.setBackgroundImage(pixel.image(alpha: 0.6), for: .highlighted)
-            button.setBackgroundImage(pixel.image(alpha: 0.4), for: .disabled)
+    lazy var checkGuessButton = CustomButton(
+        title: "Login",
+        titleColor: .white,
+        bgColor: .systemBlue,
+        action: { [unowned self] in
+            if let text = self.loginField.text {
+                if self.delegate?.check(word: text) == true {
+                    self.label1.text = "True"
+                    self.label1.backgroundColor = .green
+                    self.label1.isHidden = false
+                } else {
+                    self.label1.text = "False"
+                    self.label1.backgroundColor = .red
+                    self.label1.isHidden = false
+                }
+            }
         }
-        return button
-    }()
+    )
     
     private func createCircularLabel(with text: String, backgroundColor: UIColor) -> UILabel {
         let label = UILabel()
@@ -94,7 +87,7 @@ final class FeedViewController: UIViewController {
         label.clipsToBounds = true
         return label
     }
-
+    
     private lazy var label1: UILabel = {
         let label = createCircularLabel(with: "False", backgroundColor: .red)
         label.widthAnchor.constraint(equalTo: label.heightAnchor).isActive = true
@@ -109,8 +102,11 @@ final class FeedViewController: UIViewController {
         stackView.spacing = 10
         stackView.distribution = .fillEqually
         view.addSubview(stackView)
+        
         stackView.addArrangedSubview(loginField)
         stackView.addArrangedSubview(checkGuessButton)
+        stackView.addArrangedSubview(post1)
+        stackView.addArrangedSubview(post2)
         view.addSubview(label1)
         NSLayoutConstraint.activate([
             stackView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
@@ -121,14 +117,6 @@ final class FeedViewController: UIViewController {
             label1.topAnchor.constraint(equalTo: view.topAnchor, constant: 146),
             label1.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
         ])
-        
-        addPostButton(title: "Post number One", color: .systemPurple, to: stackView)
-        addPostButton(title: "Post number Two", color: .systemIndigo, to: stackView)
-    }
-    
-    private func addPostButton(title: String, color: UIColor, to view: UIStackView) {
-        let button = CustomButton(title: title, backColor: color)
-        view.addArrangedSubview(button)
     }
     
     @objc func tapPostButton() {
@@ -138,4 +126,13 @@ final class FeedViewController: UIViewController {
         postVC.post = post
         navigationController?.pushViewController(postVC, animated: true)
     }
+    
+    lazy var post1 = CustomButton(title: "Post number One", bgColor: .systemPurple) { [unowned self] in
+        self.tapPostButton()
+    }
+    
+    lazy var post2 =  CustomButton(title: "Post number Two", bgColor: .systemIndigo) { [unowned self] in
+        self.tapPostButton()
+    }
 }
+
