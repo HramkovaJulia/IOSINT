@@ -13,8 +13,8 @@ final class ProfileHeaderView: UITableViewHeaderFooterView {
     var avatarImageView = UIImageView()
     var statusLabel = UILabel()
     var statusTextField = UITextField()
-    var setStatusButton = UIButton()
-    var returnAvatarButton = UIButton()
+    var setStatusButton = CustomButton(title: "Show status", backColor: .systemBlue)
+    var returnAvatarButton = CustomButton()
     var avatarBackground = UIView()
     
     private var statusText = "Ready to help"
@@ -32,6 +32,12 @@ final class ProfileHeaderView: UITableViewHeaderFooterView {
         setupAvatarImage()
         
         statusTextField.delegate = self
+        setStatusButton.buttonTapped = { [weak self] in
+            self?.statusButtonPressed()
+        }
+        returnAvatarButton.buttonTapped = { [weak self] in
+            self?.returnAvatarToOrigin()
+        }
     }
 
     required init?(coder: NSCoder) {
@@ -40,7 +46,6 @@ final class ProfileHeaderView: UITableViewHeaderFooterView {
     
     private func setupNameLabel() {
         fullNameLabel.translatesAutoresizingMaskIntoConstraints = false
-//        fullNameLabel.text = "Teo West"
         fullNameLabel.font = .boldSystemFont(ofSize: 18)
         fullNameLabel.textColor = .black
         addSubview(fullNameLabel)
@@ -54,7 +59,6 @@ final class ProfileHeaderView: UITableViewHeaderFooterView {
     
     private func setupStatusLabel() {
         statusLabel.translatesAutoresizingMaskIntoConstraints = false
-//        statusLabel.text = statusText
         statusLabel.font = .systemFont(ofSize: 17)
         statusLabel.textColor = .black
         addSubview(statusLabel)
@@ -89,18 +93,15 @@ final class ProfileHeaderView: UITableViewHeaderFooterView {
     }
     
     private func setupStatusButton() {
-        setStatusButton.translatesAutoresizingMaskIntoConstraints = false
-        setStatusButton.backgroundColor = .systemBlue
-        setStatusButton.layer.cornerRadius = LayoutConstants.cornerRadius
         setStatusButton.layer.shadowOffset = CGSize(width: 4, height: 4)
         setStatusButton.layer.shadowColor = UIColor.black.cgColor
         setStatusButton.layer.shadowRadius = 4
         setStatusButton.layer.shadowOpacity = 0.7
+        
         setStatusButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 18)
-        setStatusButton.setTitle("Show status", for: .normal)
-        setStatusButton.setTitleColor(.white, for: .normal)
-        setStatusButton.addTarget(self, action: #selector(statusButtonPressed), for: .touchUpInside)
+        
         addSubview(setStatusButton)
+        
         NSLayoutConstraint.activate([
             setStatusButton.topAnchor.constraint(equalTo: statusTextField.bottomAnchor, constant: 16),
             setStatusButton.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 16),
@@ -125,13 +126,11 @@ final class ProfileHeaderView: UITableViewHeaderFooterView {
         avatarImageView.addGestureRecognizer(tapGesture)
         
         // cancel an animation mode
-        returnAvatarButton.translatesAutoresizingMaskIntoConstraints = false
         returnAvatarButton.alpha = 0
         returnAvatarButton.backgroundColor = .clear
         returnAvatarButton.contentMode = .scaleToFill
         returnAvatarButton.setImage(UIImage(systemName: "xmark", withConfiguration: UIImage.SymbolConfiguration(pointSize: 22))?.withTintColor(.black, renderingMode: .automatic), for: .normal)
         returnAvatarButton.tintColor = .black
-        returnAvatarButton.addTarget(self, action: #selector(returnAvatarToOrigin), for: .touchUpInside)
         
         // translucent background for the modal animation mode
         avatarBackground = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height))
