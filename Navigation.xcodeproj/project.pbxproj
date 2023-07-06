@@ -26,6 +26,7 @@
 		36C5F0632850B7B6005EFC6C /* PhotosCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36C5F0622850B7B6005EFC6C /* PhotosCollectionViewCell.swift */; };
 		36C5F0652850C9D1005EFC6C /* PostExamples.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36C5F0642850C9D1005EFC6C /* PostExamples.swift */; };
 		580E3F3A2A500C3300E424B5 /* iOSIntPackage in Frameworks */ = {isa = PBXBuildFile; productRef = 580E3F392A500C3300E424B5 /* iOSIntPackage */; };
+		58177D572A558836002A1044 /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58177D562A558836002A1044 /* CustomButton.swift */; };
 		581B413D2A4AEC8E0053F055 /* StorageService.h in Headers */ = {isa = PBXBuildFile; fileRef = 581B413C2A4AEC8E0053F055 /* StorageService.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		581B41402A4AEC8E0053F055 /* StorageService.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 581B413A2A4AEC8E0053F055 /* StorageService.framework */; };
 		581B41412A4AEC8E0053F055 /* StorageService.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 581B413A2A4AEC8E0053F055 /* StorageService.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -81,6 +82,7 @@
 		36C5F0602850B723005EFC6C /* PhotosViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosViewController.swift; sourceTree = "<group>"; };
 		36C5F0622850B7B6005EFC6C /* PhotosCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosCollectionViewCell.swift; sourceTree = "<group>"; };
 		36C5F0642850C9D1005EFC6C /* PostExamples.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostExamples.swift; sourceTree = "<group>"; };
+		58177D562A558836002A1044 /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
 		581B41342A4AEB8A0053F055 /* Navigation copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "Navigation copy-Info.plist"; path = "/Users/artyomprima/Documents/HW/Navigation copy-Info.plist"; sourceTree = "<absolute>"; };
 		581B413A2A4AEC8E0053F055 /* StorageService.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = StorageService.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		581B413C2A4AEC8E0053F055 /* StorageService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StorageService.h; sourceTree = "<group>"; };
@@ -169,6 +171,7 @@
 				36528E3B284F725E00965BA4 /* LayoutConstants.swift */,
 				36C5F05D2850B4A6005EFC6C /* PhotoExamples.swift */,
 				36C5F0642850C9D1005EFC6C /* PostExamples.swift */,
+				58177D562A558836002A1044 /* CustomButton.swift */,
 			);
 			path = Library;
 			sourceTree = "<group>";
@@ -304,6 +307,7 @@
 				3601A2BC28494D5D000D261A /* FeedViewController.swift in Sources */,
 				3601A2BE28494E4F000D261A /* ProfileViewController.swift in Sources */,
 				3601A2A828490DDF000D261A /* AppDelegate.swift in Sources */,
+				58177D572A558836002A1044 /* CustomButton.swift in Sources */,
 				3601A2C028495339000D261A /* PostViewController.swift in Sources */,
 				36528E37284F5E3800965BA4 /* LoginViewController.swift in Sources */,
 				36528E41284FE38C00965BA4 /* ExtensionUIView.swift in Sources */,

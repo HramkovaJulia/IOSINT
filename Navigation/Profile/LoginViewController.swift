@@ -50,24 +50,9 @@ final class LoginViewController: UIViewController {
         return stack
     }()
     
-    var loginButton: UIButton = {
-        let button = UIButton()
-        button.translatesAutoresizingMaskIntoConstraints = false
-        
-        if let pixel = UIImage(named: "blue_pixel") {
-            button.setBackgroundImage(pixel.image(alpha: 1), for: .normal)
-            button.setBackgroundImage(pixel.image(alpha: 0.8), for: .selected)
-            button.setBackgroundImage(pixel.image(alpha: 0.6), for: .highlighted)
-            button.setBackgroundImage(pixel.image(alpha: 0.4), for: .disabled)
-        }
-        
-        button.setTitle("Login", for: .normal)
-        button.setTitleColor(.white, for: .normal)
-        button.addTarget(nil, action: #selector(touchLoginButton), for: .touchUpInside)
-        button.layer.cornerRadius = LayoutConstants.cornerRadius
-        button.clipsToBounds = true
-        return button
-    }()
+    lazy var loginButton = CustomButton(title: "Login", bgColor: .systemBlue) { [unowned self] in
+        self.touchLoginButton()
+    }
     
     var loginField: UITextField = {
         let login = UITextField()
@@ -110,7 +95,12 @@ final class LoginViewController: UIViewController {
         
         view.backgroundColor = .systemBackground
         navigationController?.navigationBar.isHidden = true
-        
+        if let pixel = UIImage(named: "blue_pixel") {
+            loginButton.setBackgroundImage(pixel.image(alpha: 1), for: .normal)
+            loginButton.setBackgroundImage(pixel.image(alpha: 0.8), for: .selected)
+            loginButton.setBackgroundImage(pixel.image(alpha: 0.6), for: .highlighted)
+            loginButton.setBackgroundImage(pixel.image(alpha: 0.4), for: .disabled)
+        }
         setupViews()
     }
     
@@ -166,7 +156,6 @@ final class LoginViewController: UIViewController {
         let nc = NotificationCenter.default
         nc.addObserver(self, selector: #selector(keyboardShow), name: UIResponder.keyboardWillShowNotification, object: nil)
         nc.addObserver(self, selector: #selector(keyboardHide), name: UIResponder.keyboardWillHideNotification, object: nil)
-        
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -179,7 +168,7 @@ final class LoginViewController: UIViewController {
     
     // MARK: - Event handlers
     
-    @objc private func touchLoginButton() {
+    func touchLoginButton() {
 #if DEBUG
         user = CurrentUserService(user: User(name: "Julia", fullName: "Teo", status: "Online", image: UIImage(named: "teo")!))
 #else
@@ -199,6 +188,7 @@ final class LoginViewController: UIViewController {
             }
         }
     }
+    
     
     @objc private func keyboardShow(notification: NSNotification) {
         if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
